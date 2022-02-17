@@ -1,0 +1,64 @@
+<!-- contact from -->  
+    <form action="" id="ss-form" class="fromstyle left" method="post" target="hidden_iframe" onSubmit="submitted=true;">   
+        <p>All fields are required for submitting this request</p>
+        <fieldset>
+            <input name="method" type="hidden" value="write" style="height:0px;" /><br />
+            <div class="ss-q-title">Name<span>*</span></div>
+            <div class="fromlist"><input class="choices" id='name' name="name" type="text" required></div>
+            <div class="ss-q-title">Email<span>*</span></div>
+            <div class="fromlist"><input class="choices" id='email' name="email" type="email" required></div>
+            <div class="ss-q-title">Phone<span>*</span></div>
+            <div class="fromlist"><input class="choices" id='phone' name="phone" type="text" required></div>
+            <div class="w48 left">
+                <div class="ss-q-title">City<span>*</span></div>
+                <div class="fromlist"><input class="choices" id='city' name="city" type="text" required></div>
+            </div>
+            <div class="w48 right">
+                <div class="ss-q-title">Country<span>*</span></div>
+                <div class="fromlist"><input class="choices" id='country' name="country" type="text" required></div>
+            </div>
+            <div class="ss-q-title">Comments<span>*</span></div>
+            <div class="fromlist fromlist2">
+                <textarea class="choices choices2" id='message' name="message" required></textarea>
+            </div>
+        </fieldset>
+        <div class="clear"></div>
+        <p><br/>Enter the displayed 6-character code in the box below<br/>(6 characters, no space in between, not case sensitive.)</p>
+        <div class="checkBox" id="mpane" style = "width:100%;"></div>
+        <div class="clear"></div><br/>
+        <!-- <p class="font_bold font_ColR">* 6 characters, no space in between, not case sensitive.</p> -->
+        <div class="rent_buttom">
+            <input type="submit" name="submit" value="Send" id="ss-submit" />
+        </div>
+    </form>
+    
+    <iframe name="hidden_iframe" id="hidden_iframe" style="position:relative;left:-1000px;top:0px;visibility:hidden;width:0;height:0;" onload=""></iframe>
+    
+    //驗證碼
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script src="https://rawgit.com/jpillora/verifyjs/gh-pages/dist/verify.notify.min.js"></script>
+    <script>
+        $('#mpane').codeVerify({
+            type : 1,
+            width : '400px',
+            height : '50px',
+            fontSize : '30px',
+            codeLength : 6,
+            btnId : 'ss-submit',
+            ready : function() {
+            },
+            success : function() {
+                var submitted=false;
+                // document.getElementById('ss-form').submit()
+                var submittedTure = "if(submitted){parent.window.location='../products/Q10_Color.php?sec=sent';}"
+                var newUrl = 'you google app script link';    //设置新提交地址 			  
+                $("#ss-form").attr('action',newUrl);
+                $("#hidden_iframe").attr('onload',submittedTure);
+                
+            },
+            error : function() {
+                alert('Please enter correct verify code.');
+            }
+        });
+            
+    </script>
