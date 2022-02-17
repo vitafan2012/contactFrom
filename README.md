@@ -31,8 +31,8 @@ function write_data(para) {
 
 
 function sendEmail(datas) {
-  var emailTo ='Q10@fiilex.com';
-  var subject = "Fiilex Q10 Contact Form";
+  var emailTo ='mail';
+  var subject = "Contact Form";
 
   var name = datas.name,
       email = datas.email,
