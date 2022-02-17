@@ -1,51 +1,5 @@
-var ss = SpreadsheetApp.getActiveSpreadsheet(),
-sheet = ss.getSheetByName("sheet"); // "sheet1" 改成你的工作表名稱
-var time = Utilities.formatDate(new Date(), "GMT", "yyyy/MM/dd HH:mm:ss");
+自創表格寫入google sheet中，並寄出表格內容給指定mail:
 
+Google APP Script 要做的事情: Step1: 先在google中創建一個試算表，在試算表中使用擴充功能 → APP Script → 將googleAppScript檔案填入code.js Step2: 新增部屬，將"誰可以存取"設定為"所有人"按下"部屬"，會跑出一堆授權訊息，都授權就對了！ Step3: 複製網址(這個就是API呼叫的網址)。
 
-function doPost(e) {
-  var para = e.parameter, // 存放 post 所有傳送的參數
-  method = para.method;
-
-  if (method == "write") {
-    write_data(para);
-    sendEmail(para);
-  }
-  if (method == "read") {
-  // 這裡放讀取資料的語法 下一篇說明
-  }
-
-}
-
-function write_data(para) {
-  var name = para.name,
-      email = para.email,
-      phone = para.phone,
-      phone2 = '*'+ phone,
-      country = para.country,
-      city = para.city,
-      message = para.message;
-  sheet.appendRow([time, name, email, phone2, country, city, message]); // 插入一列新的資料
-}
-
-
-
-function sendEmail(datas) {
-  var emailTo ='mail';
-  var subject = "Contact Form";
-
-  var name = datas.name,
-      email = datas.email,
-      phone = datas.phone,
-      country = datas.country,
-      city = datas.city,
-      message = datas.message;
-
-  var html = "Timestamp:"+ time + '<br/> Name：' + name + '<br/> Email Address：' + email + '<br/> Phone：' + phone + '<br/> City:' + city + '<br/> Country:' + country + '<br/> Comments：' + message;
-  
-  GmailApp.sendEmail(emailTo, subject, html, {
-    htmlBody: html
-  });
-
-  
-}
+Html From 要做的事情: 在newUrl="填入API呼叫的網址" Google APP Script上要和From的欄位相對應，如果沒有要驗證就直接刪除驗證碼，在<form action="填入API呼叫的網址" 即可
